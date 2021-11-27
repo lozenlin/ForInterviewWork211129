@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace web
 {
@@ -34,9 +35,15 @@ namespace web
         /// </history>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FIWContext>(options => 
+            services.AddDbContext<FIWContext>(options =>
+            {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            );
+                    .UseLoggerFactory(LoggerFactory.Create(builder =>
+                    {
+                        builder.AddConsole().AddDebug();
+                    }))
+                    .EnableSensitiveDataLogging();
+            });
 
             services.AddScoped<IEmployeeDataAccess, EmployeeDataAccess>();
             services.AddScoped<IEmployeeService, EmployeeService>();
