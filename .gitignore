@@ -1,0 +1,10 @@
+/Source/ForInterviewWork/.vs
+/Source/ForInterviewWork/web/obj
+/Source/ForInterviewWork/web/bin
+/Source/ForInterviewWork/Common.Data.Domain/obj
+/Source/ForInterviewWork/Common.Data.Domain/bin
+/Source/ForInterviewWork/Common.Services/obj
+/Source/ForInterviewWork/Common.Services/bin
+/Source/ForInterviewWork/Common.DataAccess.EFCore/obj
+/Source/ForInterviewWork/Common.DataAccess.EFCore/bin
+/Source/ForInterviewWork/web/Logs

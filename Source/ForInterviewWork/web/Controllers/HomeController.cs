@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using web.Models;
@@ -15,6 +16,9 @@ namespace web.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            if (logger == null)
+                throw new ArgumentException("logger");
+
             _logger = logger;
         }
 

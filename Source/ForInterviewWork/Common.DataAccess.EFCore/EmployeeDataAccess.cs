@@ -2,7 +2,9 @@
 using Common.Services.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace Common.DataAccess.EFCore
 {
@@ -15,12 +17,19 @@ namespace Common.DataAccess.EFCore
     public class EmployeeDataAccess : IEmployeeDataAccess
     {
         protected FIWContext _fiwCtx = null;
+        protected ILogger<EmployeeDataAccess> _logger;
         protected string errMsg = "";
 
-        public EmployeeDataAccess(FIWContext fiwCtx)
+        public EmployeeDataAccess(FIWContext fiwCtx, ILogger<EmployeeDataAccess> logger)
         {
             if (fiwCtx == null)
                 throw new ArgumentException("fiwCtx");
+
+            if (logger == null)
+                throw new ArgumentException("logger");
+
+            _fiwCtx = fiwCtx;
+            _logger = logger;
         }
 
         /// <summary>
@@ -46,10 +55,12 @@ namespace Common.DataAccess.EFCore
 
             try
             {
-
+                entities = (from e in _fiwCtx.Employee
+                            select e).ToList();
             }
             catch(Exception ex)
             {
+                _logger.LogError(ex, "");
                 errMsg = ex.Message;
             }
 

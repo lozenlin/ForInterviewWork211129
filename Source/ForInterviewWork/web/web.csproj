@@ -9,4 +9,10 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.14.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Data.Domain\Common.Data.Domain.csproj" />
+    <ProjectReference Include="..\Common.DataAccess.EFCore\Common.DataAccess.EFCore.csproj" />
+    <ProjectReference Include="..\Common.Services\Common.Services.csproj" />
+  </ItemGroup>
+
 </Project>

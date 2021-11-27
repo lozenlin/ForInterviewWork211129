@@ -2,9 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Data.Domain.Models;
+using Common.DataAccess.EFCore;
+using Common.Services;
+using Common.Services.DataAccess;
+using Common.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,9 +26,21 @@ namespace web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <history>
+        /// 2021/11/27, lozenlin, modify, 串接 service layer, data access layer, 資料庫連接字串
+        /// </history>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<FIWContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            );
+
+            services.AddScoped<IEmployeeDataAccess, EmployeeDataAccess>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+
             services.AddControllersWithViews();
         }
 

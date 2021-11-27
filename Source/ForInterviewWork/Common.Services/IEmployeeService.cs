@@ -20,5 +20,12 @@ namespace Common.Services
         /// 2021/11/27, lozenlin, add
         /// </history>
         public List<Employee> GetList();
+        /// <summary>
+        /// DB command 執行後的錯誤訊息
+        /// </summary>
+        /// <history>
+        /// 2021/11/27, lozenlin, add
+        /// </history>
+        public string GetDbErrMsg();
     }
 }
