@@ -10,31 +10,32 @@ using System.Threading.Tasks;
 namespace web.Controllers
 {
     /// <summary>
-    /// 員工管理
+    /// 部門管理
     /// </summary>
     /// <history>
     /// 2021/11/27, lozenlin, add
     /// </history>
-    public class EmployeeController : Controller
+    public class DepartmentController : Controller
     {
-        private readonly IEmployeeService _empSvc;
+        private readonly IDepartmentService _deptSvc;
         private readonly ILogger<HomeController> _logger;
 
-        public EmployeeController(IEmployeeService empSvc, ILogger<HomeController> logger)
+
+        public DepartmentController(IDepartmentService deptSvc, ILogger<HomeController> logger)
         {
-            if (empSvc == null)
-                throw new ArgumentException("empSvc");
+            if (deptSvc == null)
+                throw new ArgumentException("deptSvc");
 
             if (logger == null)
                 throw new ArgumentException("logger");
 
-            _empSvc = empSvc;
+            _deptSvc = deptSvc;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            List<Employee> entities = _empSvc.GetList();
+            List<Department> entities = _deptSvc.GetList();
 
             return View();
         }

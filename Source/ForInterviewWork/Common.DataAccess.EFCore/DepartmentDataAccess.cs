@@ -1,25 +1,25 @@
 ﻿using Common.Data.Domain.Models;
 using Common.Services.DataAccess;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Common.DataAccess.EFCore
 {
     /// <summary>
-    /// 員工資料存取
+    /// 部門資料存取
     /// </summary>
     /// <history>
     /// 2021/11/27, lozenlin, add
     /// </history>
-    public class EmployeeDataAccess : DataAccessBase, IEmployeeDataAccess
+    public class DepartmentDataAccess : DataAccessBase, IDepartmentDataAccess
     {
-
-        public EmployeeDataAccess(FIWContext fiwCtx, ILogger<EmployeeDataAccess> logger)
+        public DepartmentDataAccess(FIWContext fiwCtx, ILogger<EmployeeDataAccess> logger)
             : base(fiwCtx, logger)
         {
+
         }
 
         /// <summary>
@@ -28,14 +28,14 @@ namespace Common.DataAccess.EFCore
         /// <history>
         /// 2021/11/27, lozenlin, add
         /// </history>
-        public List<Employee> GetList()
+        public List<Department> GetList()
         {
-            List<Employee> entities = null;
+            List<Department> entities = null;
 
             try
             {
-                entities = (from e in _fiwCtx.Employee
-                            select e).ToList();
+                entities = (from d in _fiwCtx.Department
+                            select d).ToList();
             }
             catch(Exception ex)
             {

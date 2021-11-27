@@ -7,11 +7,9 @@ using System.Text;
 
 namespace Common.Services.Impl
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : ServiceBase, IEmployeeService
     {
         protected IEmployeeDataAccess _empDao = null;
-        protected ILogger<EmployeeService> _logger;
-        protected string dbErrMsg = "";
 
         /// <summary>
         /// 員工管理
@@ -20,27 +18,13 @@ namespace Common.Services.Impl
         /// 2021/11/27, lozenlin, add
         /// </history>
         public EmployeeService(IEmployeeDataAccess empDao, ILogger<EmployeeService> logger)
+            : base(logger)
         {
             if (empDao == null)
                 throw new ArgumentException("empDao");
 
-            if (logger == null)
-                throw new ArgumentException("logger");
-
             _empDao = empDao;
-            _logger = logger;
 
-        }
-
-        /// <summary>
-        /// DB command 執行後的錯誤訊息
-        /// </summary>
-        /// <history>
-        /// 2021/11/27, lozenlin, add
-        /// </history>
-        public string GetDbErrMsg()
-        {
-            return dbErrMsg;
         }
 
         /// <summary>

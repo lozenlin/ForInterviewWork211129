@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Common.Data.Domain.Models;
 
-namespace Common.Services
+namespace Common.Services.DataAccess
 {
     /// <summary>
-    /// 員工管理
+    /// 資料存取共用底層
     /// </summary>
     /// <history>
     /// 2021/11/27, lozenlin, add
     /// </history>
-    public interface IEmployeeService
+    public interface IDataAccessBase
     {
         /// <summary>
-        /// 取得資料清單
+        /// 執行後的錯誤訊息
         /// </summary>
         /// <history>
         /// 2021/11/27, lozenlin, add
         /// </history>
-        public List<Employee> GetList();
+        public string GetErrMsg();
     }
 }

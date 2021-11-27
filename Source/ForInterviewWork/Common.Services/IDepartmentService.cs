@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Common.Data.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Common.Data.Domain.Models;
 
 namespace Common.Services
 {
     /// <summary>
-    /// 員工管理
+    /// 部門管理
     /// </summary>
     /// <history>
     /// 2021/11/27, lozenlin, add
     /// </history>
-    public interface IEmployeeService
+    public interface IDepartmentService
     {
         /// <summary>
         /// 取得資料清單
@@ -19,6 +19,6 @@ namespace Common.Services
         /// <history>
         /// 2021/11/27, lozenlin, add
         /// </history>
-        public List<Employee> GetList();
+        public List<Department> GetList();
     }
 }

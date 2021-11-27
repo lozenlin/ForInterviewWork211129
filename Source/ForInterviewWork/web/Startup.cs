@@ -45,8 +45,13 @@ namespace web
                     .EnableSensitiveDataLogging();
             });
 
+            // Data Access
             services.AddScoped<IEmployeeDataAccess, EmployeeDataAccess>();
+            services.AddScoped<IDepartmentDataAccess, DepartmentDataAccess>();
+
+            // Service
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
 
             services.AddControllersWithViews();
         }
