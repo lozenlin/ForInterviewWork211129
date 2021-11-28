@@ -67,8 +67,8 @@
                     ...
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
                     <button type="button" class="btn btn-primary" id="btnConfirmPrimary">確 定</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取 消</button>
                 </div>
             </div>
         </div>
@@ -78,5 +78,12 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    @if (TempData["toShowErrMsg"] != null)
+    {
+        <script>
+            ShowErrMsg('@Html.Raw(TempData["toShowErrMsg"])');
+        </script>
+    }
 </body>
 </html>

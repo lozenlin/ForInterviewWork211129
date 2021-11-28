@@ -65,5 +65,54 @@ namespace Common.Services.Impl
             return result;
         }
 
+        /// <summary>
+        /// 取得最大排序編號
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public int GetMaxSortNo()
+        {
+            int result = 0;
+
+            result = _deptDao.GetMaxSortNo();
+            dbErrMsg = _deptDao.GetErrMsg();
+
+            return result;
+        }
+
+        /// <summary>
+        /// 新增資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool InsertData(DeptParams param)
+        {
+            InsertResult insResult = new InsertResult() { IsSuccess = false };
+
+            Department entity = new Department()
+            {
+                DeptName = param.DeptName,
+                SortNo = param.SortNo,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
+
+            insResult = _deptDao.InsertData(entity);
+            dbErrMsg = _deptDao.GetErrMsg();
+
+            if (insResult.IsSuccess)
+            {
+                param.DeptId = (int)insResult.NewId;
+            }
+            else if(_deptDao.GetSqlErrNumber() == 50000 && _deptDao.GetSqlErrState() == 2)
+            {
+                param.HasDeptNameBeenUsed = true;
+            }
+
+            return insResult.IsSuccess;
+        }
+
     }
 }

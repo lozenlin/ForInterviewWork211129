@@ -29,5 +29,20 @@ namespace Common.Services
         /// 2021/11/28, lozenlin, add
         /// </history>
         public bool DeleteData(DeptParams param);
+        /// <summary>
+        /// 取得最大排序編號
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public int GetMaxSortNo();
+        /// <summary>
+        /// 新增資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool InsertData(DeptParams param);
+
     }
 }

@@ -138,5 +138,68 @@ namespace Common.DataAccess.EFCore
 
             return true;
         }
+
+        /// <summary>
+        /// 取得最大排序編號
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public int GetMaxSortNo()
+        {
+            _logger.LogDebug("GetMaxSortNo()");
+            int result = 0;
+
+            try
+            {
+                result = _fiwCtx.Department.Max(obj => obj.SortNo) ?? 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "");
+                errMsg = ex.Message;
+                return -1;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 新增資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public InsertResult InsertData(Department entity)
+        {
+            _logger.LogDebug("InsertData(entity)");
+            InsertResult insResult = new InsertResult() { IsSuccess = false };
+
+            try
+            {
+                //檢查重覆名稱
+                if(_fiwCtx.Department.Any(dept=>dept.DeptName == entity.DeptName))
+                {
+                    sqlErrNumber = 50000;
+                    sqlErrState = 2;
+                    return insResult;
+                }
+
+                _fiwCtx.Department.Add(entity);
+                _fiwCtx.SaveChanges();
+                insResult.NewId = entity.DeptId;
+
+                insResult.IsSuccess = true;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "");
+                errMsg = ex.Message;
+                return insResult;
+            }
+
+            return insResult;
+        }
+
     }
 }

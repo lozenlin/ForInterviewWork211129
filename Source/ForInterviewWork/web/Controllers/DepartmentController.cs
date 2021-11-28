@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using web.Models;
+using web.Models.ViewModels;
 
 namespace web.Controllers
 {
@@ -90,6 +91,53 @@ namespace web.Controllers
             }
 
             return Json(cr);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            DepartmentViewModel deptVM = new DepartmentViewModel()
+            {
+                SortNo = _deptSvc.GetMaxSortNo() + 10
+            };
+
+            ViewData["Title"] = "新增部門";
+
+            return View("Config", deptVM);
+        }
+
+        [HttpPost]
+        public IActionResult Create(DepartmentViewModel deptVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Config");
+            }
+
+            DeptParams param = new DeptParams()
+            {
+                DeptName = deptVM.DeptName,
+                SortNo = deptVM.SortNo,
+                PostAccount = "admin"
+            };
+
+            bool result = _deptSvc.InsertData(param);
+
+            if (!result)
+            {
+                if (param.HasDeptNameBeenUsed)
+                {
+                    TempData["toShowErrMsg"] = "新增失敗! 原因:名稱重覆";
+                }
+                else
+                {
+                    TempData["toShowErrMsg"] = "新增失敗!";
+                }
+
+                return View("Config");
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
