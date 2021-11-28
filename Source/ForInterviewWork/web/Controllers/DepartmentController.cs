@@ -35,11 +35,11 @@ namespace web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string kw)
         {
             DeptListQueryParams param = new DeptListQueryParams()
             {
-                Kw = ""
+                Kw = kw ?? ""
             };
 
             param.PagedParams = new PagedListQueryParams()
@@ -60,6 +60,8 @@ namespace web.Controllers
             param.PagedParams.EndNum = 9999999;
 
             List<DepartmentForManage> entities = _deptSvc.GetListForManage(param);
+
+            ViewData["kwIn"] = kw ?? "";
 
             return View(entities);
         }

@@ -13,14 +13,14 @@
         <div class="form-group form-row">
             <label class="col-md-2 col-form-label text-md-right">關鍵字</label>
             <div class="col-md-4">
-                <input type="text" class="form-control" maxlength="50" />
+                <input id="txtKw" type="text" class="form-control" maxlength="50" />
             </div>
         </div>
         <div class="form-group form-row">
             <div class="col-md-2"></div>
             <div class="col-md-10">
-                <a title="查詢" class="btn btn-secondary" href="#"><i class="fa fa-search"></i> 查詢</a>
-                <a title="清除條件" class="btn btn-link btn-sm" href="#">清除條件</a>
+                <a id="btnSearch" title="查詢" class="btn btn-secondary" href="#"><i class="fa fa-search"></i> 查詢</a>
+                <a id="btnClear" title="清除條件" class="btn btn-link btn-sm" href="#">清除條件</a>
             </div>
         </div>
     </div>
@@ -66,3 +66,23 @@
 <div class="text-center">
     共 @ViewData["RowCount"] 筆
 </div>
+
+@section Scripts {
+    <script>
+        $("#btnSearch").click(function () {
+            location.href = '@Url.Action("Index")?kw=' + $("#txtKw").val();
+            return false;
+        });
+
+        $("#btnClear").click(function () {
+            location.href = '@Url.Action("Index")';
+            return false;
+        });
+
+        var kwIn = '@Html.Raw(ViewData["kwIn"])';
+
+        if (kwIn != "") {
+            $("#txtKw").val(kwIn);
+        }
+    </script>
+}
