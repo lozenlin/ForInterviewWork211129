@@ -1,4 +1,5 @@
 ﻿using Common.Data.Domain.Models;
+using Common.Data.Domain.QueryParam;
 using Common.Services.DataAccess;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,16 +28,17 @@ namespace Common.Services.Impl
         }
 
         /// <summary>
-        /// 取得資料清單
+        /// 取得管理用資料清單
         /// </summary>
         /// <history>
         /// 2021/11/27, lozenlin, add
+        /// 2021/11/28, lozenlin, modify, 改為取得管理用資料清單
         /// </history>
-        public List<Department> GetList()
+        public List<DepartmentForManage> GetListForManage(DeptListQueryParams param)
         {
-            List<Department> entities = null;
+            List<DepartmentForManage> entities = null;
 
-            entities = _deptDao.GetList();
+            entities = _deptDao.GetListForManage(param);
             dbErrMsg = _deptDao.GetErrMsg();
 
             return entities;

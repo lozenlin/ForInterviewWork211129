@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Common.Services\Common.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ExtensionMethods\" />
+  </ItemGroup>
+
 </Project>

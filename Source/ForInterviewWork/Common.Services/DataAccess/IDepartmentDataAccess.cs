@@ -1,4 +1,5 @@
 ﻿using Common.Data.Domain.Models;
+using Common.Data.Domain.QueryParam;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,11 +15,12 @@ namespace Common.Services.DataAccess
     public interface IDepartmentDataAccess : IDataAccessBase
     {
         /// <summary>
-        /// 取得資料清單
+        /// 取得管理用資料清單
         /// </summary>
         /// <history>
         /// 2021/11/27, lozenlin, add
+        /// 2021/11/28, lozenlin, modify, 改為取得管理用資料清單
         /// </history>
-        public List<Department> GetList();
+        public List<DepartmentForManage> GetListForManage(DeptListQueryParams param);
     }
 }

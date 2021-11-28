@@ -1,4 +1,5 @@
 ﻿using Common.Data.Domain.Models;
+using Common.Data.Domain.QueryParam;
 using Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,9 +36,31 @@ namespace web.Controllers
 
         public IActionResult Index()
         {
-            List<Department> entities = _deptSvc.GetList();
+            DeptListQueryParams param = new DeptListQueryParams()
+            {
+                Kw = ""
+            };
 
-            return View();
+            param.PagedParams = new PagedListQueryParams()
+            {
+                BeginNum = 0,
+                EndNum = 0,
+                SortField = "",
+                IsSortDesc = false
+            };
+
+            // 取得總筆數
+            _deptSvc.GetListForManage(param);
+
+            // 設定分頁控制項(未來),取得起迄編號
+            ViewData["RowCount"] = param.PagedParams.RowCount;
+
+            param.PagedParams.BeginNum = 1;
+            param.PagedParams.EndNum = 9999999;
+
+            List<DepartmentForManage> entities = _deptSvc.GetListForManage(param);
+
+            return View(entities);
         }
     }
 }
