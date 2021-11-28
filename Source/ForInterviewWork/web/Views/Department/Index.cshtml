@@ -52,7 +52,7 @@
                     @item.EmpTotal
                 </td>
                 <td>
-                    <a title="修改" class="btn btn-sm btn-success" href="#">
+                    <a title="修改" class="btn btn-sm btn-success" asp-action="Edit" asp-route-id="@item.DeptId">
                         <i class="fa fa-pencil-square-o"></i> 修改
                     </a>
                     <a title="刪除" class="btn btn-sm btn-danger" href="#" onclick="ConfirmDeleteDept(@item.DeptId, '@item.DeptName', '@Url.Action("Delete")'); return false;">

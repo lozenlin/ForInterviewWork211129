@@ -114,5 +114,42 @@ namespace Common.Services.Impl
             return insResult.IsSuccess;
         }
 
+        /// <summary>
+        /// 取得管理用資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public DepartmentForManage GetDataForManage(int deptId)
+        {
+            DepartmentForManage entity = null;
+
+            entity = _deptDao.GetDataForManage(deptId);
+            dbErrMsg = _deptDao.GetErrMsg();
+
+            return entity;
+        }
+
+        /// <summary>
+        /// 更新資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool UpdateData(DeptParams param)
+        {
+            bool result = false;
+
+            result = _deptDao.UpdateData(param);
+            dbErrMsg = _deptDao.GetErrMsg();
+
+            if (!result && _deptDao.GetSqlErrNumber() == 50000 && _deptDao.GetSqlErrState() == 2)
+            {
+                param.HasDeptNameBeenUsed = true;
+            }
+
+            return result;
+        }
+
     }
 }

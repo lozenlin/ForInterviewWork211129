@@ -27,12 +27,42 @@
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-check-circle"></i> 送 出
                 </button>
+                <input type="hidden" asp-for="DeptId" />
             </div>
         </form>
     </div>
 </div>
+<table class="table table-responsive-sm table-bordered table-sm mt-1">
+    <tbody>
+        <tr>
+            <th style="width: 15%;">@Html.DisplayNameFor(m => m.PostAccount)</th>
+            <td style="width: 35%;">
+                @Html.DisplayFor(m => m.PostAccount)
+            </td>
+            <th style="width: 15%;">@Html.DisplayNameFor(m => m.PostDate)</th>
+            <td style="width: 35%;">
+                @Html.DisplayFor(m => m.PostDate)
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 15%;">@Html.DisplayNameFor(m => m.MdfAccount)</th>
+            <td style="width: 35%;">
+                @Html.DisplayFor(m => m.MdfAccount)
+            </td>
+            <th style="width: 15%;">@Html.DisplayNameFor(m => m.MdfDate)</th>
+            <td style="width: 35%;">
+                @Html.DisplayFor(m => m.MdfDate)
+            </td>
+        </tr>
+    </tbody>
+</table>
 
 @section Scripts{
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        if ('@ViewContext.RouteData.Values["action"]' == "Edit") {
+            $("form").attr("action", '@Url.Action("Edit")');
+        }
+    </script>
 }

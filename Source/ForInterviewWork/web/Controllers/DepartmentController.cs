@@ -116,7 +116,7 @@ namespace web.Controllers
 
             DeptParams param = new DeptParams()
             {
-                DeptName = deptVM.DeptName,
+                DeptName = deptVM.DeptName.Trim(),
                 SortNo = deptVM.SortNo,
                 PostAccount = "admin"
             };
@@ -136,6 +136,71 @@ namespace web.Controllers
 
                 return View("Config");
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            DepartmentForManage dept = _deptSvc.GetDataForManage(id);
+            DepartmentViewModel deptVM = null;
+
+            if (dept != null)
+            {
+                deptVM = new DepartmentViewModel()
+                {
+                    DeptId = dept.DeptId,
+                    DeptName = dept.DeptName,
+                    SortNo = dept.SortNo.Value,
+                    PostAccount = dept.PostAccount,
+                    PostDate = dept.PostDate,
+                    MdfAccount = dept.MdfAccount,
+                    MdfDate = dept.MdfDate
+                };
+            }
+            else
+            {
+                deptVM = new DepartmentViewModel();
+            }
+
+            ViewData["Title"] = "修改部門";
+
+            return View("Config", deptVM);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(DepartmentViewModel deptVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Config");
+            }
+
+            DeptParams param = new DeptParams()
+            {
+                DeptId = deptVM.DeptId,
+                DeptName = deptVM.DeptName.Trim(),
+                SortNo = deptVM.SortNo,
+                PostAccount = "admin"
+            };
+
+            bool result = _deptSvc.UpdateData(param);
+
+            if (!result)
+            {
+                if (param.HasDeptNameBeenUsed)
+                {
+                    TempData["toShowErrMsg"] = "更新失敗! 原因:名稱重覆";
+                }
+                else
+                {
+                    TempData["toShowErrMsg"] = "更新失敗!";
+                }
+
+                return View("Config");
+            }
+
 
             return RedirectToAction("Index");
         }

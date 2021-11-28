@@ -25,10 +25,12 @@ namespace web.Models.ViewModels
         [DisplayName("建立者")]
         public string PostAccount { get; set; }
         [DisplayName("建立日期")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}")]
         public DateTime? PostDate { get; set; }
         [DisplayName("更新者")]
         public string MdfAccount { get; set; }
         [DisplayName("更新日期")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm:ss}")]
         public DateTime? MdfDate { get; set; }
     }
 }

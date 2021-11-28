@@ -43,6 +43,19 @@ namespace Common.Services
         /// 2021/11/28, lozenlin, add
         /// </history>
         public bool InsertData(DeptParams param);
-
+        /// <summary>
+        /// 取得管理用資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public DepartmentForManage GetDataForManage(int deptId);
+        /// <summary>
+        /// 更新資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool UpdateData(DeptParams param);
     }
 }

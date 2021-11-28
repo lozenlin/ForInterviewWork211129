@@ -201,5 +201,79 @@ namespace Common.DataAccess.EFCore
             return insResult;
         }
 
+        /// <summary>
+        /// 取得管理用資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public DepartmentForManage GetDataForManage(int deptId)
+        {
+            _logger.LogDebug("GetDataForManage(deptId)");
+            DepartmentForManage entity = null;
+
+            try
+            {
+                entity = (from d in _fiwCtx.Department
+                          where d.DeptId == deptId
+                          select new DepartmentForManage()
+                          {
+                              DeptId = d.DeptId,
+                              DeptName = d.DeptName,
+                              SortNo = d.SortNo,
+                              PostAccount = d.PostAccount,
+                              PostDate = d.PostDate,
+                              MdfAccount = d.MdfAccount,
+                              MdfDate = d.MdfDate
+                          }).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "");
+                errMsg = ex.Message;
+                return null;
+            }
+
+            return entity;
+        }
+
+        /// <summary>
+        /// 更新資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool UpdateData(DeptParams param)
+        {
+            _logger.LogDebug("UpdateData(param)");
+
+            try
+            {
+                // 檢查重覆名稱
+                if (_fiwCtx.Department.Any(dept => dept.DeptName == param.DeptName && dept.DeptId != param.DeptId))
+                {
+                    sqlErrNumber = 50000;
+                    sqlErrState = 2;
+                    return false;
+                }
+
+                Department entity = _fiwCtx.Department.Find(param.DeptId);
+                entity.DeptName = param.DeptName;
+                entity.SortNo = param.SortNo;
+                entity.MdfAccount = param.PostAccount;
+                entity.MdfDate = DateTime.Now;
+
+                _fiwCtx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "");
+                errMsg = ex.Message;
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }
