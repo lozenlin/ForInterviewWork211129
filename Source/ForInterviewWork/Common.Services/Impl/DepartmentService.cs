@@ -43,5 +43,27 @@ namespace Common.Services.Impl
 
             return entities;
         }
+
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool DeleteData(DeptParams param)
+        {
+            bool result = false;
+
+            result = _deptDao.DeleteData(param.DeptId);
+            dbErrMsg = _deptDao.GetErrMsg();
+
+            if(!result && _deptDao.GetSqlErrNumber() == 50000 && _deptDao.GetSqlErrState() == 2)
+            {
+                param.IsThereEmployeesOfDept = true;
+            }
+
+            return result;
+        }
+
     }
 }

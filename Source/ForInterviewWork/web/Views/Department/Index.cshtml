@@ -55,7 +55,7 @@
                     <a title="修改" class="btn btn-sm btn-success" href="#">
                         <i class="fa fa-pencil-square-o"></i> 修改
                     </a>
-                    <a title="刪除" class="btn btn-sm btn-danger" href="#">
+                    <a title="刪除" class="btn btn-sm btn-danger" href="#" onclick="ConfirmDeleteDept(@item.DeptId, '@item.DeptName', '@Url.Action("Delete")'); return false;">
                         <i class="fa fa-trash-o"></i> 刪除
                     </a>
                 </td>

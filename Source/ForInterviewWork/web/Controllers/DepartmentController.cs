@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using web.Models;
 
 namespace web.Controllers
 {
@@ -61,6 +62,32 @@ namespace web.Controllers
             List<DepartmentForManage> entities = _deptSvc.GetListForManage(param);
 
             return View(entities);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var cr = new ClientResult()
+            {
+                b = false,
+                err = ""
+            };
+
+            DeptParams param = new DeptParams() { DeptId = id };
+            bool result = _deptSvc.DeleteData(param);
+            cr.b = result;
+
+            if (!result)
+            {
+                if (param.IsThereEmployeesOfDept)
+                {
+                    cr.err = "不允許刪除已有員工的部門資料!";
+                }
+                else
+                    cr.err = _deptSvc.GetDbErrMsg();
+            }
+
+            return Json(cr);
         }
     }
 }

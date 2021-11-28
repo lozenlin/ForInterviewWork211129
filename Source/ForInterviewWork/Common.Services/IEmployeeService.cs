@@ -11,7 +11,7 @@ namespace Common.Services
     /// <history>
     /// 2021/11/27, lozenlin, add
     /// </history>
-    public interface IEmployeeService
+    public interface IEmployeeService : IServiceBase
     {
         /// <summary>
         /// 取得資料清單

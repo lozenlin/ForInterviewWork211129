@@ -104,5 +104,39 @@ namespace Common.DataAccess.EFCore
 
             return entities;
         }
+
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool DeleteData(int deptId)
+        {
+            _logger.LogDebug("DeleteData(deptId)");
+
+            try
+            {
+                // 檢查所屬員工數量
+                if (_fiwCtx.Employee.Any(emp => emp.DeptId == deptId))
+                {
+                    sqlErrNumber = 50000;
+                    sqlErrState = 2;
+                    return false;
+                }
+
+                Department entity = _fiwCtx.Department.Find(deptId);
+                _fiwCtx.Department.Remove(entity);
+                _fiwCtx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "");
+                errMsg = ex.Message;
+                return false;
+            }
+
+            return true;
+        }
     }
 }

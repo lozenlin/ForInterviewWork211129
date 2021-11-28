@@ -18,6 +18,8 @@ namespace Common.Services.DataAccess
         /// <history>
         /// 2021/11/27, lozenlin, add
         /// </history>
-        public string GetErrMsg();
+        string GetErrMsg();
+        int GetSqlErrNumber();
+        int GetSqlErrState();
     }
 }

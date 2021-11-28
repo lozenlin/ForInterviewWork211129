@@ -18,6 +18,8 @@ namespace Common.DataAccess.EFCore
         protected FIWContext _fiwCtx = null;
         protected ILogger<DataAccessBase> _logger;
         protected string errMsg = "";
+        protected int sqlErrNumber = 0;
+        protected int sqlErrState = 0;
 
         public DataAccessBase(FIWContext fiwCtx, ILogger<DataAccessBase> logger)
         {
@@ -41,5 +43,28 @@ namespace Common.DataAccess.EFCore
         {
             return errMsg;
         }
+
+        /// <summary>
+        /// sql error number
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public int GetSqlErrNumber()
+        {
+            return sqlErrNumber;
+        }
+
+        /// <summary>
+        /// sql error state
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public int GetSqlErrState()
+        {
+            return sqlErrState;
+        }
+
     }
 }

@@ -12,7 +12,7 @@ namespace Common.Services
     /// <history>
     /// 2021/11/27, lozenlin, add
     /// </history>
-    public interface IDepartmentService
+    public interface IDepartmentService : IServiceBase
     {
         /// <summary>
         /// 取得管理用資料清單
@@ -22,5 +22,12 @@ namespace Common.Services
         /// 2021/11/28, lozenlin, modify, 改為取得管理用資料清單
         /// </history>
         public List<DepartmentForManage> GetListForManage(DeptListQueryParams param);
+        /// <summary>
+        /// 刪除資料
+        /// </summary>
+        /// <history>
+        /// 2021/11/28, lozenlin, add
+        /// </history>
+        public bool DeleteData(DeptParams param);
     }
 }
